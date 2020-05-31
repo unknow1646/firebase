@@ -64,9 +64,10 @@
         android:id="@+id/nombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_gravity="center"
-        android:text="HOLA USUARIO"/>
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        android:text="HOLA USUARIO" />
 
     <ImageView
         android:layout_width="match_parent"

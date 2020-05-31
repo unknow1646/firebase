@@ -46,7 +46,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                    startActivity(i2);
                    finish();
                }else{
-                   Toast.makeText(this, "USUARIO REGISTRADO", Toast.LENGTH_LONG).show();
+                   Toast.makeText(this, "USUARIO ya existe ", Toast.LENGTH_LONG).show();
                }
 
                break;

@@ -20,6 +20,8 @@ public class daoUsuario {
         sql = c.openOrCreateDatabase(bd, c.MODE_PRIVATE, null);
         sql.execSQL(tabla);
         u=new Usuario();
+        lista=new ArrayList<Usuario>();
+
     }
 
     public boolean insertUsuario(Usuario u){
@@ -62,9 +64,44 @@ public class daoUsuario {
                 u.setApellidos(cr.getString(4));
                 lista.add(u);
             }while(cr.moveToNext());
-
         }
         return lista;
     }
+
+    public int login (String u, String p){
+        int a=0;
+        Cursor cr=sql.rawQuery("select * from usuario", null);
+        if(cr!=null&&cr.moveToFirst()){
+            do {
+                if(cr.getString(1).equals(u)&&cr.getString(2).equals(p)){
+                    a++;
+                }
+            }while(cr.moveToNext());
+        }
+        return a;
+    }
+
+    public Usuario getUsuario(String u, String p) {
+        lista = selectUsuarios();
+        for (Usuario us : lista){
+            if (us.getUsuario().equals(u) && us.getPassword().equals(p)) {
+                return us;
+            }
+        }
+        return null;
+    }
+
+    public Usuario getUsuarioById(int id) {
+        lista = selectUsuarios();
+        for (Usuario us : lista){
+            if (us.getId()==id) {
+                return us;
+            }
+        }
+        return null;
+    }
+
+
+
 
 }
