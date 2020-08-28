@@ -8,46 +8,71 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText user, pass;
-    Button btnEntrar, btnRegistrar;
-    daoUsuario dao;
+    private EditText mEditTextEmail;
+    private EditText mEditTextPassword;
+    private Button mButtonLogin;
+
+    private String email = "";
+    private String password = "";
+
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user=(EditText)findViewById(R.id.User);
-        pass=(EditText)findViewById(R.id.Pass);
-        btnEntrar=(Button)findViewById(R.id.btnEntrar);
-        btnRegistrar=(Button)findViewById(R.id.btnRegistrar);
+        mAuth = FirebaseAuth.getInstance();
+        mEditTextEmail = (EditText) findViewById(R.id.User);
+        mEditTextPassword = (EditText) findViewById(R.id.Pass);
+        mButtonLogin = (Button) findViewById(R.id.btnEntrar);
 
-        btnEntrar.setOnClickListener(this);
-        btnRegistrar.setOnClickListener(this);
-        dao= new daoUsuario(this);
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = mEditTextEmail.getText().toString();
+                password = mEditTextPassword.getText().toString();
+                if (!email.isEmpty() && !password.isEmpty()) {
+                    loginUser();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Complete los campos", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+    private void loginUser() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(MainActivity.this, Inicio.class));
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesion", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
     }
 
 
-    public void onClick(View v){
+   public void onClick(View v){
         switch (v.getId()){
-            case R.id.btnEntrar:
-                String u=user.getText().toString();
-                String p=pass.getText().toString();
-                if(u.equals("")&&p.equals("")){
-                    Toast.makeText(this, "Error: Campos vacios", Toast.LENGTH_SHORT).show();
-                }else if(dao.login(u,p)==1){
-                    Usuario ux= dao.getUsuario(u,p);
-                    Toast.makeText(this, "Datos correctos", Toast.LENGTH_SHORT).show();
-                    Intent i2= new Intent (MainActivity.this, Inicio.class);
-                    i2.putExtra("id", ux.getId());
-                    startActivity(i2);
-                    finish();
-                }else{
-                    Toast.makeText(this, "Usuario y/o password incorrectos", Toast.LENGTH_SHORT).show();
-                }
 
-                 break;
+
             case R.id.btnRegistrar:
                  Intent i=new Intent(MainActivity.this, Registrar.class);
                  startActivity(i);

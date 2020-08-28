@@ -1,22 +1,18 @@
 package com.example.loginwea;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,19 +88,15 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                         public void onComplete(@NonNull Task<Void> task2) {
                             if(task2.isSuccessful()){
                                 Toast.makeText(Registrar.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
-
+                                startActivity(new Intent(Registrar.this, MainActivity.class));
+                                finish();
                             }
-                            else{
-                                Toast.makeText(Registrar.this, "No se pudieron crear los datos correctamente", Toast.LENGTH_SHORT).show();
-
-                            }
-
                         }
                     });
 
                 }
                 else {
-                    Toast.makeText(Registrar.this, "No se pudo registrar este usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registrar.this, "CAMPOS INGRESADOS INCORRECTOS", Toast.LENGTH_SHORT).show();
                 }
 
             }

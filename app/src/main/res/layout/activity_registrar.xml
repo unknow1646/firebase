@@ -18,39 +18,32 @@
 
 
     <EditText
-        android:id="@+id/RegUser"
+        android:id="@+id/RegNombre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:hint="Usuario"
-        android:inputType="textEmailAddress"/>
+        android:hint="Nombre"/>
+
+
+    <EditText
+        android:id="@+id/RegEmail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:hint="Email"/>
+
     <EditText
         android:id="@+id/RegPass"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:hint="Password"
-        android:inputType="textPassword"/>
+        android:hint="Password"/>
 
-    <EditText
-        android:id="@+id/RegNombre"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:hint="Nombre"
-        android:inputType="textPersonName"/>
 
-    <EditText
-        android:id="@+id/RegApellido"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:hint="Apellidos"
-        android:inputType="textPersonName"/>
+
     <Button
         android:id="@+id/btnRegRegistrar"
         android:layout_width="match_parent"
